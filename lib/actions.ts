@@ -8,6 +8,7 @@ import {
   getProjectByIdQuery,
   getProjectsOfUserQuery,
   getUserQuery,
+  projectsQuery,
   projectsQueryAll,
   projectsQueryWithFilter,
 } from "@/graphql";
@@ -66,11 +67,13 @@ export const fetchAllProjects = (
   endcursor?: string | null
 ) => {
   client.setHeader("x-api-key", apiKey);
-  if (category) {
-    return makeGraphQLRequest(projectsQueryWithFilter, { category, endcursor });
-  }
 
-  return makeGraphQLRequest(projectsQueryAll, { category });
+  const validCategory = category ?? "";
+
+  return makeGraphQLRequest(projectsQuery, {
+    category: validCategory,
+    endcursor,
+  });
 };
 
 // querey to create a  new project
