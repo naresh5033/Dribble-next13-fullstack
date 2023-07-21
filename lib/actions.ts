@@ -72,7 +72,7 @@ export const fetchAllProjects = async (
     return makeGraphQLRequest(projectsQueryWithFilter, { category, endcursor });
   }
 
-  return makeGraphQLRequest(projectsQueryAll, { category });
+  return makeGraphQLRequest(projectsQueryAll, { endcursor });
 };
 
 // querey to create a  new project
