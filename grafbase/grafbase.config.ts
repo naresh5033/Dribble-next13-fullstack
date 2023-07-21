@@ -12,7 +12,7 @@ const User = g.model('User', {
   // the user can ve multiple projects
   projects: g.relation(() => Project).list().optional(),
 }).auth((rules) => {
-  rules.public().read()
+  rules.public().read() //the rules for the user is public (so everyone can read,)
 })
 
 // @ts-ignore
@@ -25,20 +25,20 @@ const Project = g.model('Project', {
   category: g.string().search(), //allow us to search thru the categories.
   createdBy: g.relation(() => User),
 }).auth((rules) => {
-  rules.public().read()
+  rules.public().read() //for the project only the read pro is pub and the remaining is private(as)
   rules.private().create().delete().update()
 })
 
 const jwt = auth.JWT({
   issuer: 'grafbase',
-  secret:  g.env('NEXTAUTH_SECRET')
+  secret:  g.env('NEXTAUTH_SECRET') // this next  auth secret is used to encrypt the next js JWT and to hash email verification token
 })
 
 export default config({
   schema: g,
   auth: {
     providers: [jwt],
-    rules: (rules) => rules.private()
+    rules: (rules) => rules.private() //means we re setting all the funcionality of our app to be privatie
   },
 })
 

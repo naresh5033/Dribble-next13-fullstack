@@ -1,0 +1,2 @@
+- as for the edit project route we ve create the [id] dir/path (as the editing project should ve the id param).
+- which is not required for the create-project

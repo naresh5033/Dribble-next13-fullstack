@@ -1,5 +1,6 @@
 "use client";
 
+// as it is the client side component, and only thing its doing is changing the url, and then depending on the change of the url the server side fetches the projects according to the category
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { categoryFilters } from "@/constant";
@@ -12,7 +13,7 @@ const Categories = () => {
   const category = searchParams.get("category");
 
   const handleTags = (item: string) => {
-    router.push(`${pathName}?category=${item}`);
+    router.push(`${pathName}?category=${item}`); // embed the pathname with the category of the currently selected item
   };
 
   return (
@@ -24,7 +25,7 @@ const Categories = () => {
             type="button"
             onClick={() => handleTags(filter)}
             className={`${
-              category === filter
+              category === filter // if its currently selected one 
                 ? "bg-light-white-300 font-medium"
                 : "font-normal"
             } px-4 py-3 rounded-lg capitalize whitespace-nowrap`}

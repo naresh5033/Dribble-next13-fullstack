@@ -10,7 +10,7 @@ import { deleteProject, fetchToken } from '@/lib/actions'
 type Props = {
     projectId: string
 }
-
+// in this component where the user can edit or delete the project
 const ProjectActions = ({ projectId }: Props) => {
     const [isDeleting, setIsDeleting] = useState<boolean>(false)
     const router = useRouter()

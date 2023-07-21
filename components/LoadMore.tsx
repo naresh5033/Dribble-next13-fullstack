@@ -15,7 +15,7 @@ const LoadMore = ({ startCursor, endCursor, hasPreviousPage, hasNextPage }: Prop
     const router = useRouter();
 
     const handleNavigation = (type: string) => {
-        const currentParams = new URLSearchParams(window.location.search);
+        const currentParams = new URLSearchParams(window.location.search); //Returns an object of type StringString.. The query string portion of the URL. This includes the question mark, and everything following, excluding the hash.
         
         if (type === "prev" && hasPreviousPage) {
             currentParams.delete("endcursor");

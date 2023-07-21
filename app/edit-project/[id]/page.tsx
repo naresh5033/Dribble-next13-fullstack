@@ -11,6 +11,7 @@ const EditProject = async ({ params: { id } }: { params: { id: string } }) => {
 
   if (!session?.user) redirect("/")
 
+  // in the form field we wanna prepopulate the fields, so we don't feel like we re createing the new one
   const result = await getProjectDetails(id) as { project?: ProjectInterface };
   
   if (!result?.project) return (

@@ -9,11 +9,12 @@ type Props = {
     projectId: string
 }
 
+// the related projects(of the user) that shown in the projectDetails page - /project/[id]/page.tsx
 const RelatedProjects = async ({ userId, projectId }: Props) => {
     const result = await getUserProjects(userId) as { user?: UserProfile}
 
     const filteredProjects = result?.user?.projects?.edges
-        ?.filter(({ node }: { node: ProjectInterface }) => node?.id !== projectId)
+        ?.filter(({ node }: { node: ProjectInterface }) => node?.id !== projectId) // the projects of the user those are not the one we currnent on(aka pull the rest of the projects not the one in the project detail)
 
     if (filteredProjects?.length === 0) return null;
 

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 export default function Modal({ children }: { children: ReactNode }) {
-    const overlay = useRef<HTMLDivElement>(null);
+    const overlay = useRef<HTMLDivElement>(null); //target the div element and make it null so the form appears it will give us the overlay element effect
     const wrapper = useRef<HTMLDivElement>(null);
     const router = useRouter();
 
@@ -13,7 +13,9 @@ export default function Modal({ children }: { children: ReactNode }) {
         router.push("/");
     }, [router]);
 
-    const handleClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    // handle click is gon work if we click outside of the modal.
+    // the useCallback returns the memoized version of the callback that only change when the i/p changes
+    const handleClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => { 
         if ((e.target === overlay.current) && onDismiss) {
             onDismiss();
         }

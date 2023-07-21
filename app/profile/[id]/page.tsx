@@ -2,6 +2,7 @@ import { getUserProjects } from '@/lib/actions'
 import ProfilePage from '@/components/ProfilePage'
 import { UserProfile } from '@/common.types';
 
+// the user profile page
 type Props = {
     params: {
         id: string,
@@ -9,6 +10,7 @@ type Props = {
 }
 
 const UserProfile = async ({ params }: Props) => {
+    // lets get the user related projects (with the limits of 100)
     const result = await getUserProjects(params.id, 100) as { user: UserProfile }
 
     if (!result?.user) return (

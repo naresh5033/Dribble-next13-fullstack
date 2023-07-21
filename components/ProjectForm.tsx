@@ -47,6 +47,7 @@ const ProjectForm = ({ type, session, project }: Props) => {
             return;
         }
 
+        // if we ve a file and the file type is img then read the file
         const reader = new FileReader();
 
         reader.readAsDataURL(file);
@@ -54,8 +55,8 @@ const ProjectForm = ({ type, session, project }: Props) => {
         reader.onload = () => {
             const result = reader.result as string;
 
-            handleStateChange("image", result)
-        };
+            handleStateChange("image", result) //update the img from the result
+        }; 
     };
 
     const handleFormSubmit = async (e: FormEvent) => {
@@ -81,7 +82,7 @@ const ProjectForm = ({ type, session, project }: Props) => {
         } catch (error) {
             alert(`Failed to ${type === "create" ? "create" : "edit"} a project. Try again!`);
         } finally {
-            setSubmitting(false)
+            setSubmitting(false) //to stop the loading
         }
     }
 
@@ -129,7 +130,7 @@ const ProjectForm = ({ type, session, project }: Props) => {
                 type="url"
                 title="Website URL"
                 state={form.liveSiteUrl}
-                placeholder="https://jsmastery.pro"
+                placeholder="https://naresh.com"
                 setState={(value) => handleStateChange('liveSiteUrl', value)}
             />
 
@@ -137,7 +138,7 @@ const ProjectForm = ({ type, session, project }: Props) => {
                 type="url"
                 title="GitHub URL"
                 state={form.githubUrl}
-                placeholder="https://github.com/adrianhajdin"
+                placeholder="https://github.com/naresh5033"
                 setState={(value) => handleStateChange('githubUrl', value)}
             />
 
@@ -150,7 +151,7 @@ const ProjectForm = ({ type, session, project }: Props) => {
 
             <div className="flexStart w-full">
                 <Button
-                    title={submitting ? `${type === "create" ? "Creating" : "Editing"}` : `${type === "create" ? "Create" : "Edit"}`}
+                    title={submitting ? `${type === "create" ? "Creating" : "Editing"}` : `${type === "create" ? "Create" : "Edit"}`} 
                     type="submit"
                     leftIcon={submitting ? "" : "/plus.svg"}
                     submitting={submitting}

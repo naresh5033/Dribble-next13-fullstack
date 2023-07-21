@@ -20,7 +20,7 @@ const ProjectCard = ({ id, image, title, name, avatarUrl, userId }: Props) => {
 
     useEffect(() => {
         setRandomLikes(Math.floor(Math.random() * 10000))
-        setRandomViews(String((Math.floor(Math.random() * 10000) / 1000).toFixed(1) + 'k'))
+        setRandomViews(String((Math.floor(Math.random() * 10000) / 1000).toFixed(1) + 'k')) //rand val with 1 decimal and added k to the val
     }, []);
 
     return (
@@ -39,6 +39,7 @@ const ProjectCard = ({ id, image, title, name, avatarUrl, userId }: Props) => {
                 </div>
             </Link>
 
+            {/* for user avatar with the user link */}
             <div className="flexBetween w-full px-2 mt-3 font-semibold text-sm">
                 <Link href={`/profile/${userId}`}>
                         <div className="flexCenter gap-2">
@@ -53,6 +54,7 @@ const ProjectCard = ({ id, image, title, name, avatarUrl, userId }: Props) => {
                         </div>               
                 </Link>
 
+                {/* for the heart and view icons */}
                 <div className="flexCenter gap-3">
                     <div className="flexCenter gap-2">
                         <Image src="/hearth.svg" width={13} height={12} alt="heart" />

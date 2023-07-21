@@ -8,10 +8,12 @@ import { JWT } from "next-auth/jwt";
 import { createUser, getUser } from "./actions";
 import { SessionInterface, UserProfile } from "@/common.types";
 
+// this session contains the data about currently logged users
+
 export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientId: process.env.GOOGLE_CLIENT_ID!, //client id or undefined
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
   ],
@@ -20,8 +22,8 @@ export const authOptions: NextAuthOptions = {
       const encodedToken = jsonwebtoken.sign(
         {
           ...token,
-          iss: "grafbase",
-          exp: Math.floor(Date.now() / 1000) + 60 * 60,
+          iss: "grafbase", //issuer
+          exp: Math.floor(Date.now() / 1000) + 60 * 60, //46,800seconds, 13 hrs - its a std practice, we can customize if we want to
         },
         secret
       );
@@ -37,8 +39,8 @@ export const authOptions: NextAuthOptions = {
     colorScheme: "light",
     logo: "/logo.svg",
   },
-  callbacks: {
-    async session({ session }) {
+  callbacks: { //every time user triggers the page and there we can just start the new session for the user
+    async session({ session }) { //here merging the 2 users(google and db users)
       const email = session?.user?.email as string;
 
       try { 
@@ -46,9 +48,9 @@ export const authOptions: NextAuthOptions = {
 
         const newSession = {
           ...session,
-          user: {
-            ...session.user,
-            ...data?.user,
+          user: { //merged
+            ...session.user, //google user
+            ...data?.user,  //db user
           },
         };
 
@@ -58,16 +60,19 @@ export const authOptions: NextAuthOptions = {
         return session;
       }
     },
-    async signIn({ user }: {
+    async signIn({ user }: { //sign in user of type google user or the db user.
       user: AdapterUser | User
     }) {
       try {
+        // if the usr exist get the user
         const userExists = await getUser(user?.email as string) as { user?: UserProfile }
         
+        // or create a new user
         if (!userExists.user) {
           await createUser(user.name as string, user.email as string, user.image as string)
         }
 
+        // return true if they exist or created.
         return true;
       } catch (error: any) {
         console.log("Error checking if user exists: ", error.message);
@@ -75,7 +80,8 @@ export const authOptions: NextAuthOptions = {
       }
     },
   },
-};
+}; 
+// we don't want to simply return the google user, we wana hook up the google user with our own db user, so to do that we wanna merge the session with the 2 users
 
 export async function getCurrentUser() {
   const session = await getServerSession(authOptions) as SessionInterface;

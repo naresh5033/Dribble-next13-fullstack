@@ -1,7 +1,7 @@
 "use client"
 
 import { getProviders, signIn } from 'next-auth/react';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react' // as we knonw whenever we use the hook we can't render it from the server as they leverage the client side funcitonality
 
 import Button from './Button';
 
