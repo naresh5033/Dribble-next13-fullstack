@@ -70,7 +70,7 @@ export const fetchAllProjects = (
     return makeGraphQLRequest(projectsQueryWithFilter, { category, endcursor });
   }
 
-  return makeGraphQLRequest(projectsQueryAll, { endcursor });
+  return makeGraphQLRequest(projectsQueryAll, { category });
 };
 
 // querey to create a  new project
