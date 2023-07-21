@@ -76,7 +76,7 @@ export const fetchAllProjects = (
     endcursor,
   });
 }
-  return makeGraphQLRequest(projectsQueryAll, { category, endcursor });
+  return makeGraphQLRequest(projectsQueryAll, { category, });
 };
 
 // querey to create a  new project
