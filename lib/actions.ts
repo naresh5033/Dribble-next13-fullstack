@@ -62,7 +62,7 @@ const makeGraphQLRequest = async (query: string, variables = {}) => {
 };
 
 //the end cursor - allow us to know which page are we on.
-export const fetchAllProjects = (
+export const fetchAllProjects = async (
   category?: string | null,
   endcursor?: string | null
 ) => {
@@ -72,7 +72,7 @@ export const fetchAllProjects = (
     return makeGraphQLRequest(projectsQueryWithFilter, { category, endcursor });
   }
 
-  return makeGraphQLRequest(projectsQueryAll, { endcursor });
+  return makeGraphQLRequest(projectsQueryAll, { category });
 };
 
 // querey to create a  new project
