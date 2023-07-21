@@ -42,7 +42,7 @@
 
 # Deployment 
 
-- the app has been deployed in the vercel
+- the app has been deployed in the netlify
 - and then ve to change add/update the deployed url in the google cloud console (as the authorized url with api/auth/callback/google at the end of the url)
 - update our next Auth url in the env variable and then redeploy the app
 - and also add the env vars for our grafbase
