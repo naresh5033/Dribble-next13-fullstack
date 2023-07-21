@@ -14,6 +14,7 @@ import {
 } from "@/graphql";
 import { ProjectForm } from "@/common.types";
 
+
 // this action file is responsible for the querying(the actual query logic in the garphql dir, we just use those fns here) logics to the grafbase and sending req to  server
 
 // condns for the prod and the dev environment (of the grafbase and our app)
@@ -68,15 +69,14 @@ export const fetchAllProjects = (
 ) => {
   client.setHeader("x-api-key", apiKey);
 
-  const validCategory = category ?? "";
-  return makeGraphQLRequest(projectsQuery, {
-    category: validCategory,
+  //const validCategory = category ?? "";
+  if (category) {
+  return makeGraphQLRequest(projectsQueryWithFilter, {
+    category,
     endcursor,
   });
-
-  //return makeGraphQLRequest(projectsQueryAll, { category });
-
-  //return makeGraphQLRequest(projectsQuery, { category, endcursor });
+}
+  return makeGraphQLRequest(projectsQueryAll, { category, endcursor });
 };
 
 // querey to create a  new project
