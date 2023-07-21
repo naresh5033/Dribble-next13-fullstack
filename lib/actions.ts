@@ -8,12 +8,10 @@ import {
   getProjectByIdQuery,
   getProjectsOfUserQuery,
   getUserQuery,
-  projectsQuery,
   projectsQueryAll,
   projectsQueryWithFilter,
 } from "@/graphql";
 import { ProjectForm } from "@/common.types";
-
 
 // this action file is responsible for the querying(the actual query logic in the garphql dir, we just use those fns here) logics to the grafbase and sending req to  server
 
@@ -68,15 +66,11 @@ export const fetchAllProjects = (
   endcursor?: string | null
 ) => {
   client.setHeader("x-api-key", apiKey);
-
-  //const validCategory = category ?? "";
   if (category) {
-  return makeGraphQLRequest(projectsQueryWithFilter, {
-    category,
-    endcursor,
-  });
-}
-  return makeGraphQLRequest(projectsQueryAll, { category, });
+    return makeGraphQLRequest(projectsQueryWithFilter, { category, endcursor });
+  }
+
+  return makeGraphQLRequest(projectsQueryAll, { endcursor });
 };
 
 // querey to create a  new project
