@@ -68,12 +68,11 @@ export const fetchAllProjects = (
 ) => {
   client.setHeader("x-api-key", apiKey);
 
-  const validCategory = category ?? "";
+  if (category) {
+    return makeGraphQLRequest(projectsQueryWithFilter, { category, endcursor });
+  }
 
-  return makeGraphQLRequest(projectsQuery, {
-    category: validCategory,
-    endcursor,
-  });
+  return makeGraphQLRequest(projectsQueryAll, { endcursor });
 };
 
 // querey to create a  new project
